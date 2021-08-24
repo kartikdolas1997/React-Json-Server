@@ -1,70 +1,75 @@
-import React, {useState} from 'react'
-import { useForm, Controller } from "react-hook-form";
+import React from "react";
+import { useForm } from "react-hook-form";
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
+import InputLabel from '@material-ui/core/InputLabel';
+import { makeStyles } from '@material-ui/core/styles';
+
+import FormControl from '@material-ui/core/FormControl';
 
 
 
 
 
-
-
-
+const useStyles = makeStyles((theme) => ({
+  formControl: {
+    margin: theme.spacing(1),
+    minWidth: 120,
+  },
+  selectEmpty: {
+    marginTop: theme.spacing(2),
+  },
+}));
 
 function FormComponent() {
-  const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    password: ""
-  });
+  const classes = useStyles();
 
-  const updateFormData = event =>
-  setFormData({
-    ...formData,
-    [event.target.name]: event.target.value
-  });
+  const { register, handleSubmit } = useForm();
+  const onSubmit = data => console.log(data);
 
-const { firstName, lastName, email, password } = formData;
-const { register, handleSubmit, control } = useForm();
-const onSubmit = (data) => console.log(data);
-
- 
   return (
     <div>
       <form onSubmit={handleSubmit(onSubmit)}>
-      <input
-        value={firstName}
-        onChange={e => updateFormData(e)}
-        placeholder="First name"
-        type="text"
-        name="firstName"
-        required
-      />
-      <input
-        value={lastName}
-        onChange={e => updateFormData(e)}
-        placeholder="Last name"
-        type="text"
-        name="lastName"
-        required
-      />
-      <input
-        value={email}
-        onChange={e => updateFormData(e)}
-        placeholder="Email address"
-        type="email"
-        name="email"
-        required
-      />
-      <input
-        value={password}
-        onChange={e => updateFormData(e)}
-        placeholder="Password"
-        type="password"
-        name="password"
-        required
-      />
-      <button type="submit">Submit</button>
-    </form>
+        <TextField {...register("fullName")} id="outlined-basic" label="Full Name" variant="outlined" />
+
+
+        <div>
+
+        <FormControl variant="outlined" className={classes.formControl}>
+        <InputLabel id="demo-simple-select-outlined-label">Gender</InputLabel>
+        <Select
+        {...register("gender")}
+          labelId="demo-simple-select-outlined-label"
+          id="demo-simple-select-outlined"
+          label="Gender"
+        >
+          {/* <MenuItem value="" disabled>None</MenuItem> */}
+          <MenuItem value={"male"}>Male</MenuItem>
+          <MenuItem value={"female"}>Female</MenuItem>
+          <MenuItem value={"other"}>Other</MenuItem>
+        </Select>
+        </FormControl>
+        </div>
+        <div>
+        <TextField
+        {...register("comments")}
+          id="outlined-multiline-static"
+          label="Comments"
+          multiline
+          rows={4}
+          defaultValue="Default Value"
+          variant="outlined"
+        />
+        </div>
+
+
+
+        <div>
+          <Button variant="contained" color="primary" type="submit">submit</Button>
+        </div>
+      </form>
     </div>
   );
 }

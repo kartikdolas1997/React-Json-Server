@@ -6,6 +6,7 @@ import TabContext from "@material-ui/lab/TabContext";
 import TabList from "@material-ui/lab/TabList";
 import TabPanel from "@material-ui/lab/TabPanel";
 import FormComponent from "./FormComponent";
+import Typicode from "./Typicode";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -29,14 +30,16 @@ function Navbar() {
         <AppBar position="static">
           <TabList onChange={handleChange} aria-label="simple tabs example">
             <Tab label="Form" value="1" />
-            <Tab label="Data" value="2" />
+            <Tab label="Typicode" value="2" />
             {/* <Tab label="Item Three" value="3" /> */}
           </TabList>
         </AppBar>
         <TabPanel value="1">
           <FormComponent></FormComponent>
         </TabPanel>
-        <TabPanel value="2">Data</TabPanel>
+        <TabPanel value="2">
+          <Typicode></Typicode>
+        </TabPanel>
         {/* <TabPanel value="3">Item Three</TabPanel> */}
       </TabContext>
     </div>
